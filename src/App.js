@@ -3,9 +3,11 @@ import { Header, Footer } from "./components";
 
 function App() {
   return (
-    <div>
-      <h1>Title</h1>
-    </div>
+    <>
+      <Header />
+      <AllRoutes />
+      <Footer />
+    </>
   );
 }
 
