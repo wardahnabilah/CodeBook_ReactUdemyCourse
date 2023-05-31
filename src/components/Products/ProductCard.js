@@ -17,7 +17,7 @@ export function ProductCard({ product }) {
         </div>
         <div className="flex justify-between items-center">
           <span className="text-3xl">${product.price}</span>
-          <button className="px-2 py-1.5 text-white rounded-lg bg-blue-700">Add To Cart +</button>
+          <button className="px-2 py-1.5 text-white rounded-lg bg-blue-700 hover:bg-blue-900">Add To Cart +</button>
         </div>
       </div>
     </Link>

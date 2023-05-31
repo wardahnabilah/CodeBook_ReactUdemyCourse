@@ -16,7 +16,7 @@ export function FilterBar() {
                         <label htmlFor="lowToHigh">Price - Low to High</label>
                     </div>
                     <div className="flex gap-2 items-center">
-                        <input id="lowToHigh" name="sortBy" type="radio" />
+                        <input id="HighToLow" name="sortBy" type="radio" />
                         <label htmlFor="lowToHigh">Price - High to Low</label>
                     </div>
                 </li>

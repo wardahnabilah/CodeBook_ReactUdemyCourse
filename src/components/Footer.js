@@ -5,8 +5,8 @@ export function Footer() {
     const year = date.getFullYear()
 
     return (
-    <div className="w-11/12 max-w-screen-xl mx-auto py-2 border-t-2">
+    <footer className="w-11/12 max-w-screen-xl mx-auto mt-32 py-4 border-t-2">
         <p className="text-center">Copyright {year} CodeBook. All rights reserved.</p>
-    </div>
+    </footer>
   )
 }

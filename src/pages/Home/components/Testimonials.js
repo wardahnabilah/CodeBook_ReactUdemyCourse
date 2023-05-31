@@ -3,7 +3,7 @@ import React from 'react'
 export function Testimonials() {
   return (
     <section className="w-11/12 py-12 max-w-screen-xl mx-auto text-center">
-        <h1 className="mb-12 text-3xl font-semibold underline underline-offset-4">Featured eBooks</h1>
+        <h1 className="mb-12 text-3xl font-semibold underline underline-offset-4">Student About CodeBook</h1>
         <div className="grid md:grid-cols-2 border-2">
             {/* Testimonial 1*/}
             <div className="p-10 flex flex-col justify-center gap-3 border-b-2">
@@ -32,7 +32,7 @@ export function Testimonials() {
             </div>
 
             {/* Testimonial 3*/}
-            <div className="p-10 flex flex-col justify-center gap-3 border-b-2">
+            <div className="p-10 flex flex-col justify-center gap-3 border-b-2  md:border-b-0">
                 <h3 className="text-[1.3rem] font-semibold">Mindblowing workflow</h3>
                 <p className="text-lg text-neutral-500">"Aesthetically, the well designed components are beautiful and will undoubtedly level up your next application."</p>
                 <div className="mt-6 flex items-center justify-center gap-4">

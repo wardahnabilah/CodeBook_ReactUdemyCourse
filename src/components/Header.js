@@ -6,7 +6,7 @@ export function Header() {
   return (
     <header>
         <div className="w-11/12 max-w-screen-xl mx-auto py-2 flex justify-between items-center border-b-2">
-            <Link className="flex items-center">
+            <Link to="/" className="flex items-center">
                 <img className="w-12" src={Logo} alt="code book logo" />
                 <span className="text-2xl font-bold">CodeBook</span>
             </Link>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { FaqAccordion } from './FaqAccordion';
+import { FaqAccordion } from './FaqAccordion'
 
 export function Faq() {
     const faqs = [
