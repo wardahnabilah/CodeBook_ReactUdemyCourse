@@ -7,7 +7,7 @@ export function ScrollToTop() {
     useEffect(()=>{
         window.scrollTo(0,0)
     }, [pathname])
-    return (
-    <div>ScrollToTop</div>
-  )
+    
+    
+    return null
 }
