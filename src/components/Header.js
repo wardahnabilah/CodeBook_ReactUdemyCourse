@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import Logo from '../assets/logo.png'
 import { Link } from 'react-router-dom'
+import { Search } from './Search'
 
 export function Header() {
     const [isDark, setIsDark] = useState(false)
+    const [openSearch, setOpenSearch] = useState(false)
 
     useEffect(()=>{
         if(isDark) {
@@ -16,6 +18,10 @@ export function Header() {
     function handleDarkMode() {
         setIsDark(!isDark)
     }
+
+    function handleSearch() {
+        setOpenSearch(!openSearch)
+    }
   
     return (
     <header>
@@ -27,7 +33,7 @@ export function Header() {
             <div className="flex gap-4 items-center">
                 {isDark ? <i onClick={handleDarkMode} className="bi bi-brightness-low-fill text-4xl hover:text-neutral-600 dark:hover:text-cyan-500 hover:cursor-pointer"></i> : 
                           <i onClick={handleDarkMode} className={"bi bi-moon-stars-fill text-2xl hover:text-neutral-600 dark:hover:text-cyan-500 hover:cursor-pointer"}></i>}
-                <i className="bi bi-search text-2xl hover:text-neutral-600 dark:hover:text-cyan-500 hover:cursor-pointer"></i>
+                <i onClick={handleSearch} className="bi bi-search text-2xl hover:text-neutral-600 dark:hover:text-cyan-500 hover:cursor-pointer"></i>
                 <Link to="/cart" className="relative">
                     <i className="bi bi-cart-fill text-2xl hover:text-neutral-600 dark:hover:text-cyan-500 hover:cursor-pointer"></i>
                     <div className="w-4 h-4 absolute -top-1 -right-1.5 text-xs text-slate-200 text-center bg-red-500 rounded-full">3</div>
@@ -35,6 +41,7 @@ export function Header() {
                 <i className="bi bi-person-circle text-2xl hover:text-neutral-600 dark:hover:text-cyan-500 hover:cursor-pointer"></i>
             </div>
         </div>
+        {openSearch && <Search />}
     </header>
   )
 }
