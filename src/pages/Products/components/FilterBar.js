@@ -1,11 +1,11 @@
 import React from 'react'
 
-export function FilterBar() {
+export function FilterBar({ setOpenFilter }) {
   return (
-        <div className="hidden fixed top-0 right-0 w-6/12 max-w-[25rem] h-screen shadow-lg bg-white text-left px-4">
+        <div className="fixed top-0 right-0 w-6/12 max-w-[25rem] h-screen shadow-lg bg-white dark:bg-slate-700 text-left px-4">
             <div className="flex justify-between items-center border-b-2 pt-8 pb-3">
                 <h4 className="text-xl text-gray-400 font-bold uppercase">FILTERS</h4>
-                <i className="bi bi-x-lg"></i>
+                <button onClick={()=>{setOpenFilter(false)}} className="bi bi-x-lg"></button>
             </div>
             <ul className="flex flex-col">
                 {/* Sort by */}
