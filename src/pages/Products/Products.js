@@ -1,10 +1,14 @@
 import { ProductCard } from '../../components'
 import { FilterBar } from './components/FilterBar'
 import { useFetch } from '../../hooks/useFetch'
+import { useSearchParams } from 'react-router-dom'
 
 export function Products() {
     
-    const products = useFetch("http://localhost:8000/products")
+    const [searchParams] = useSearchParams()
+    const keyword = searchParams.get("q")
+
+    const products = useFetch(`http://localhost:8000/products?name_like=${keyword ? keyword : ''}`)
 
     return (
     <section className="w-11/12 py-12 max-w-screen-xl mx-auto text-center lg:text-left"> 
@@ -13,12 +17,13 @@ export function Products() {
             <button className="bi bi-funnel-fill text-3xl px-4 hover:text-neutral-600 dark:hover:text-cyan-500 hover:cursor-pointer"></button>
         </div>
         <div className="flex flex-wrap">
-            {products.map(product => {
-                return <ProductCard 
-                            key={product.id}
-                            product={product}
-                        />
-            })}
+            {products.length !== 0 ? products.map(product => {
+                                        return <ProductCard 
+                                                    key={product.id}
+                                                    product={product}
+                                                />}) : 
+                                    <p className="text-xl mx-auto">No results for `{keyword}`</p>
+            }
         </div>
         <FilterBar />
     </section>
