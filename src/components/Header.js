@@ -41,7 +41,7 @@ export function Header() {
                 <i className="bi bi-person-circle text-2xl hover:text-neutral-600 dark:hover:text-cyan-500 hover:cursor-pointer"></i>
             </div>
         </div>
-        {openSearch && <Search />}
+        {openSearch && <Search setOpenSearch={setOpenSearch}/>}
     </header>
   )
 }
