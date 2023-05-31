@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 export function ProductCard({ product }) {
   return (
-    <Link to={`/product/${product.id}`} className="w-[23rem] mx-auto mb-12 shadow-2xl rounded-xl overflow-hidden">
+    <Link to={`/product/${product.id}`} className="w-[23rem] mx-auto mb-12 shadow-2xl rounded-xl overflow-hidden dark:bg-slate-800">
       <div className="relative h-[16rem]">
         <img className="w-full h-full object-cover" src={product.image_local} alt={product.name} />
         {product.best_seller && <div className="absolute top-4 left-4 px-2 py-1 text-lg text-white bg-orange-500 rounded-lg">Best Seller</div>}

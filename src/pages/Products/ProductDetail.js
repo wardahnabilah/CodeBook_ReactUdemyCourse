@@ -15,7 +15,7 @@ export function ProductDetail() {
         <h1 className="mb-4 text-4xl text-center font-bold">{product.name}</h1>
         <p className="text-lg text-center mb-6">{product.overview}</p>
         <div className="flex flex-col gap-12 items-center lg:flex-row lg:flex-auto">
-          <div className="basis-1/2 rounded-lg overflow-hidden">
+          <div className="basis-1/2 rounded-lg overflow-hidden shadow-lg">
             <img src={product.poster} alt={product.name} />
           </div>
           <div className="basis-1/2 flex flex-col gap-4 text-left">
