@@ -1,6 +1,6 @@
 import { ProductCard } from '../../components'
 import { FilterBar } from './components/FilterBar'
-import { useFetch } from '../../hooks/useFetch'
+import { useFetch, useDocTitle } from '../../hooks'
 import { useSearchParams } from 'react-router-dom'
 
 export function Products() {
@@ -9,6 +9,9 @@ export function Products() {
     const keyword = searchParams.get("q")
 
     const products = useFetch(`http://localhost:8000/products?name_like=${keyword ? keyword : ''}`)
+
+    // Document title
+    useDocTitle("CodeBook - Collections")
 
     return (
     <section className="w-11/12 py-12 max-w-screen-xl mx-auto text-center lg:text-left"> 

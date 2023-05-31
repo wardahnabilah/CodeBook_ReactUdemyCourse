@@ -1,7 +1,7 @@
 import React from 'react'
 import { Rating } from '../../components/Products/Rating'
 import { useParams } from 'react-router-dom'
-import { useFetch } from '../../hooks/useFetch'
+import { useFetch, useDocTitle } from '../../hooks'
 
 export function ProductDetail() {
   // Get the product id
@@ -10,13 +10,17 @@ export function ProductDetail() {
   // Get the product detail
   const product = useFetch(`http://localhost:8000/products/${id}`)
   
+  // Document title
+  useDocTitle(`${product.name} - CodeBook`)
+
   return (
     <section className="w-11/12 py-12 max-w-screen-xl mx-auto text-center lg:text-left">
         <h1 className="mb-4 text-4xl text-center font-bold">{product.name}</h1>
-        <p className="text-lg text-center mb-6">{product.overview}</p>
-        <div className="flex flex-col gap-12 items-center lg:flex-row lg:flex-auto">
-          <div className="basis-1/2 rounded-lg overflow-hidden shadow-lg">
+        <p className="text-lg text-center mb-6 lg:mb-14">{product.overview}</p>
+        <div className="flex flex-col gap-12 lg:flex-row lg:flex-auto">
+          <div className="relative basis-1/2 rounded-lg overflow-hidden shadow-lg">
             <img src={product.poster} alt={product.name} />
+            {product.best_seller && <div className="absolute top-6 left-6 px-2 py-1 text-lg text-white bg-orange-500 rounded-lg">Best Seller</div>}
           </div>
           <div className="basis-1/2 flex flex-col gap-4 text-left">
               <p className="text-4xl font-bold">${product.price}</p>
