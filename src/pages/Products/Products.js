@@ -27,7 +27,7 @@ export function Products() {
                                                     key={product.id}
                                                     product={product}
                                                 />}) : 
-                                    <p className="text-xl mx-auto">No results for `{keyword}`</p>
+                                    <p className="text-xl mx-auto py-12">No results for `{keyword}`</p>
             }
         </div>
         {openFilter && <FilterBar setOpenFilter={setOpenFilter}/>}
