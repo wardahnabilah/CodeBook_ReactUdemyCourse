@@ -21,7 +21,7 @@ export function FilterProvider({ children }) {
         })
     }
 
-    function bestSeller(products) {
+    function bestSellerFilter(products) {
         if(state.bestSeller === true) {
             return products.filter(product => product.best_seller === true)
         }
@@ -29,7 +29,15 @@ export function FilterProvider({ children }) {
         return products
     }
 
-    const filteredProducts = bestSeller(state.productList)
+    function inStockFilter(products) {
+        if(state.inStock === true) {
+            return products.filter(product => product.in_stock === true )
+        }
+
+        return products
+    }
+
+    const filteredProducts = inStockFilter(bestSellerFilter(state.productList))
 
     const value = {
         productList: filteredProducts,

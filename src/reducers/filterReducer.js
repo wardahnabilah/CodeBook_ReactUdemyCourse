@@ -15,7 +15,7 @@ export function filterReducer(state, action) {
             return {...state, bestSeller: !state.bestSeller}
 
         case "INSTOCK":
-            return
+            return {...state, inStock: !state.inStock}
 
         default:
             throw new Error("Error")

@@ -52,7 +52,7 @@ export function FilterBar({ setOpenFilter }) {
                         <label htmlFor="bestSeller">Best Seller Only</label>
                     </div>
                     <div className="flex gap-2 items-center">
-                        <input id="instock" name="otherFilters" type="checkbox" />
+                        <input onClick={()=>{dispatch({type: "INSTOCK"})}} id="instock" name="otherFilters" type="checkbox" />
                         <label htmlFor="instock">Instock Only</label>
                     </div>
                 </li>
