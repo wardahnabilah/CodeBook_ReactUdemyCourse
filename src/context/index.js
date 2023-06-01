@@ -1,1 +1,2 @@
-export { FilterContext } from './FilterContext'
+export { useFilterContext } from './FilterContext'
+export { FilterProvider } from './FilterContext'

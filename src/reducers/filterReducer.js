@@ -1,4 +1,4 @@
-export default function filterReducer(state, action) {
+export function filterReducer(state, action) {
     const {type, payload} = action
 
     switch(type) {
