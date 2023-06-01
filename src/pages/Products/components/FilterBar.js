@@ -14,11 +14,11 @@ export function FilterBar({ setOpenFilter }) {
                 <li className="p-2">
                     <h5 className="mb-1 text-lg font-semibold">Sort By</h5>
                     <div className="flex gap-2 items-center">
-                        <input id="lowToHigh" name="sortBy" type="radio" />
+                        <input onChange={()=>{dispatch({type: "SORT_BY", payload: {sortBy: "LOWTOHIGH"}})}} checked={state.sortBy === "LOWTOHIGH"} id="lowToHigh" name="sortBy" type="radio" />
                         <label htmlFor="lowToHigh">Price - Low to High</label>
                     </div>
                     <div className="flex gap-2 items-center">
-                        <input id="HighToLow" name="sortBy" type="radio" />
+                        <input onChange={()=>{dispatch({type: "SORT_BY", payload: {sortBy: "HIGHTOLOW"}})}} checked={state.sortBy === "HIGHTOLOW"} id="HighToLow" name="sortBy" type="radio" />
                         <label htmlFor="lowToHigh">Price - High to Low</label>
                     </div>
                 </li>

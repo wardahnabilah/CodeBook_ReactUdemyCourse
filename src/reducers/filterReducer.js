@@ -6,7 +6,7 @@ export function filterReducer(state, action) {
             return {...state, productList: payload.products}
         
         case "SORT_BY":
-            return
+            return {...state, sortBy: payload.sortBy}
 
         case "RATING":
             return {...state, rating: payload.rating}

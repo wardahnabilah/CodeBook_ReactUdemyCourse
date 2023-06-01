@@ -57,7 +57,19 @@ export function FilterProvider({ children }) {
         return products
     }
 
-    const filteredProducts = ratingFilter(inStockFilter(bestSellerFilter(state.productList)))
+    function sortByFilter(products) {
+        if(state.sortBy === "LOWTOHIGH") {
+            return products.sort((a, b) => a.price - b.price)
+        }
+
+        else if(state.sortBy === "HIGHTOLOW") {
+            return products.sort((a, b) => b.price - a.price)
+        }
+
+        return products
+    }
+
+    const filteredProducts = sortByFilter(ratingFilter(inStockFilter(bestSellerFilter(state.productList))))
 
     const value = {
         productList: filteredProducts,
