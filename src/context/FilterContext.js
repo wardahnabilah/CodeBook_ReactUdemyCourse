@@ -42,6 +42,7 @@ export function FilterProvider({ children }) {
     const value = {
         productList: filteredProducts,
         allProducts,
+        state,
         dispatch
     }
 
