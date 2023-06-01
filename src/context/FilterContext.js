@@ -37,7 +37,27 @@ export function FilterProvider({ children }) {
         return products
     }
 
-    const filteredProducts = inStockFilter(bestSellerFilter(state.productList))
+    function ratingFilter(products) {
+        if(state.rating === "FOURSTARSABOVE") {
+            return products.filter(product => product.rating >= 4)
+        }
+
+        else if(state.rating === "THREESTARSABOVE") {
+            return products.filter(product => product.rating >= 3)
+        }
+
+        else if(state.rating === "TWOSTARSABOVE") {
+            return products.filter(product => product.rating >= 2)
+        }
+
+        else if(state.rating === "ONESTARSABOVE") {
+            return products.filter(product => product.rating >= 1)
+        }
+
+        return products
+    }
+
+    const filteredProducts = ratingFilter(inStockFilter(bestSellerFilter(state.productList)))
 
     const value = {
         productList: filteredProducts,

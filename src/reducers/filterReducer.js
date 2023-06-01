@@ -9,7 +9,7 @@ export function filterReducer(state, action) {
             return
 
         case "RATING":
-            return
+            return {...state, rating: payload.rating}
 
         case "BEST_SELLER":
             return {...state, bestSeller: !state.bestSeller}

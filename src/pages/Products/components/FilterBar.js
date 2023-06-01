@@ -27,19 +27,19 @@ export function FilterBar({ setOpenFilter }) {
                 <li className="p-2">
                     <h5 className="mb-1 text-lg font-semibold">Rating</h5>
                     <div className="flex gap-2 items-center">
-                        <input id="fourStars" name="rating" type="radio" />
+                        <input onChange={()=>dispatch({type: "RATING", payload: {rating: "FOURSTARSABOVE"}})} checked={state.rating === "FOURSTARSABOVE"} id="fourStars" name="rating" type="radio" />
                         <label htmlFor="fourStars">4 Stars & Above</label>
                     </div>
                     <div className="flex gap-2 items-center">
-                        <input id="threeStars" name="rating" type="radio" />
+                        <input onChange={()=>dispatch({type: "RATING", payload: {rating: "THREESTARSABOVE"}})} checked={state.rating === "THREESTARSABOVE"} id="threeStars" name="rating" type="radio" />
                         <label htmlFor="threeStars">3 Stars & Above</label>
                     </div>
                     <div className="flex gap-2 items-center">
-                        <input id="twoStars" name="rating" type="radio" />
+                        <input onChange={()=>dispatch({type: "RATING", payload: {rating: "TWOSTARSABOVE"}})} checked={state.rating === "TWOSTARSABOVE"} id="twoStars" name="rating" type="radio" />
                         <label htmlFor="twoStars">2 Stars & Above</label>
                     </div>
                     <div className="flex gap-2 items-center">
-                        <input id="oneStar" name="rating" type="radio" />
+                        <input onChange={()=>dispatch({type: "RATING", payload: {rating: "ONESTARSABOVE"}})} checked={state.rating === "ONESTARSABOVE"} id="oneStar" name="rating" type="radio" />
                         <label htmlFor="oneStar">1 Star & Above</label>
                     </div>
                 </li>
