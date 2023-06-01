@@ -16,6 +16,15 @@ export function filterReducer(state, action) {
 
         case "INSTOCK":
             return {...state, inStock: !state.inStock}
+        
+        case "CLEAR_FILTERS":
+            return {
+                ...state,
+                sortBy: null,
+                rating: null,
+                bestSeller: false,
+                inStock: false
+            }
 
         default:
             throw new Error("Error")

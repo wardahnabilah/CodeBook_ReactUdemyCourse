@@ -57,7 +57,8 @@ export function FilterBar({ setOpenFilter }) {
                     </div>
                 </li>
 
-                <button className="mt-6 py-2 border-2 rounded-lg">Clear Filter</button>
+                {/* Clear All Filters */}
+                <button onClick={()=>{dispatch({type: "CLEAR_FILTERS"})}} className="mt-6 py-2 border-2 rounded-lg">Clear Filter</button>
             </ul>
         </div>
   )
