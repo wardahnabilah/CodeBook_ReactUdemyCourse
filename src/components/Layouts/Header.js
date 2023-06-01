@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Search } from '../Elements/Search'
+import { Search, DropdownLoggedOut } from '../../components'
 import Logo from '../../assets/logo.png'
 
 export function Header() {
     const [isDark, setIsDark] = useState(false)
     const [openSearch, setOpenSearch] = useState(false)
+    const [openUser, setOpenUser] = useState(false)
 
     useEffect(()=>{
         if(isDark) {
@@ -25,7 +26,7 @@ export function Header() {
   
     return (
     <header>
-        <div className="w-11/12 max-w-screen-xl mx-auto py-2 flex justify-between items-center border-b-2">
+        <nav className="w-11/12 max-w-screen-xl mx-auto py-2 flex justify-between items-center border-b-2">
             <Link to="/" className="flex items-center">
                 <img className="w-12" src={Logo} alt="code book logo" />
                 <span className="text-2xl font-bold">CodeBook</span>
@@ -38,10 +39,11 @@ export function Header() {
                     <i className="bi bi-cart-fill text-2xl hover:text-neutral-600 dark:hover:text-cyan-500 hover:cursor-pointer"></i>
                     <div className="w-4 h-4 absolute -top-1 -right-1.5 text-xs text-slate-200 text-center bg-red-500 rounded-full">3</div>
                 </Link>
-                <i className="bi bi-person-circle text-2xl hover:text-neutral-600 dark:hover:text-cyan-500 hover:cursor-pointer"></i>
+                <i onClick={()=>{setOpenUser(!openUser)}} className="bi bi-person-circle text-2xl hover:text-neutral-600 dark:hover:text-cyan-500 hover:cursor-pointer"></i>
             </div>
-        </div>
+        </nav>
         {openSearch && <Search setOpenSearch={setOpenSearch}/>}
+        {openUser && <DropdownLoggedOut />}
     </header>
   )
 }
