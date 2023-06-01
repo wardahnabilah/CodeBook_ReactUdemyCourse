@@ -12,7 +12,7 @@ export function filterReducer(state, action) {
             return
 
         case "BEST_SELLER":
-            return
+            return {...state, bestSeller: !state.bestSeller}
 
         case "INSTOCK":
             return

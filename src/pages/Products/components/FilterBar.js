@@ -1,7 +1,9 @@
-import React from 'react'
+import { useFilterContext } from "../../../context/FilterContext"
 
 export function FilterBar({ setOpenFilter }) {
-  return (
+    const { dispatch } = useFilterContext()
+    
+    return (
         <div className="fixed top-0 right-0 w-6/12 max-w-[25rem] h-screen shadow-lg bg-white dark:bg-slate-700 text-left px-4">
             <div className="flex justify-between items-center border-b-2 pt-8 pb-3">
                 <h4 className="text-xl text-gray-400 font-bold uppercase">FILTERS</h4>
@@ -46,7 +48,7 @@ export function FilterBar({ setOpenFilter }) {
                 <li className="p-2">
                     <h5 className="mb-1 text-lg font-semibold">Other Filters</h5>
                     <div className="flex gap-2 items-center">
-                        <input id="bestSeller" name="otherFilters" type="checkbox" />
+                        <input onClick={()=>{dispatch({type: "BEST_SELLER"})}} id="bestSeller" name="otherFilters" type="checkbox" />
                         <label htmlFor="bestSeller">Best Seller Only</label>
                     </div>
                     <div className="flex gap-2 items-center">

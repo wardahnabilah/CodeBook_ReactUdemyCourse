@@ -21,9 +21,20 @@ export function FilterProvider({ children }) {
         })
     }
 
-    const value={
-        productList: state.productList,
-        allProducts
+    function bestSeller(products) {
+        if(state.bestSeller === true) {
+            return products.filter(product => product.best_seller === true)
+        }
+
+        return products
+    }
+
+    const filteredProducts = bestSeller(state.productList)
+
+    const value = {
+        productList: filteredProducts,
+        allProducts,
+        dispatch
     }
 
     return  <FilterContext.Provider value={value}>
