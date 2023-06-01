@@ -3,8 +3,8 @@ export default function filterReducer(state, action) {
 
     switch(type) {
         case "PRODUCT_LIST":
-            return
-            
+            return {...state, productList: payload.products}
+        
         case "SORT_BY":
             return
 
