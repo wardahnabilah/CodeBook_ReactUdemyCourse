@@ -1,5 +1,6 @@
-export { Header } from "./Header"; 
-export { Footer } from "./Footer"; 
-export { ProductCard } from "./Products/ProductCard"; 
-export { ScrollToTop } from "./ScrollToTop";
-export { Search } from "./Search";
+export { Header } from  './Layouts/Header'; 
+export { Footer } from './Layouts/Footer'; 
+export { ProductCard } from './Elements/ProductCard';
+export { Rating } from './Elements/Rating';
+export { Search } from './Elements/Search';
+export { ScrollToTop } from './Others/ScrollToTop';

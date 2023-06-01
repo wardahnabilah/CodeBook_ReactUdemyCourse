@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import Logo from '../assets/logo.png'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Search } from './Search'
+import { Search } from '../Elements/Search'
+import Logo from '../../assets/logo.png'
 
 export function Header() {
     const [isDark, setIsDark] = useState(false)

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Rating } from '../../components/Products/Rating'
+import { Rating } from '../../components'
 import { useParams } from 'react-router-dom'
 import { useFetch, useDocTitle } from '../../hooks'
 
