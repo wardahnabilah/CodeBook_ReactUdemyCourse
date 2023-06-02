@@ -4,8 +4,8 @@ export function cartReducer(state, action) {
     const {type, payload} = action
   
     switch(type) {
-    case "":
-        return
+    case "ADD_ITEM":
+        return {...state, cartList: [...state.cartList, payload.newProduct]}
     default:
         return
   }

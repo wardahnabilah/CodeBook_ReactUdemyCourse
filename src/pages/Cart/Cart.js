@@ -1,10 +1,14 @@
 import React from 'react'
 import { CartEmpty } from './components/CartEmpty'
+import { CartList } from './components/CartList'
+import { useCartContext } from '../../context'
 
 export function Cart() {
+  const { cartList } = useCartContext()
+  
   return (
     <main>
-        <CartEmpty />
+        {cartList.length !== 0 ? <CartList products={cartList} /> : <CartEmpty />}
     </main>
   )
 }
