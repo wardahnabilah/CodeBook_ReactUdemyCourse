@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ScrollToTop } from './components';
-import { FilterProvider } from './context';
+import { CartProvider, FilterProvider } from './context';
 import './index.css';
 import App from './App';
 
@@ -13,9 +13,11 @@ root.render(
   <React.StrictMode>
     <Router>
       <FilterProvider>
-        <ScrollToTop />
-        <ToastContainer position="top-center" />
-        <App />
+        <CartProvider>
+          <ScrollToTop />
+          <ToastContainer position="top-center" />
+          <App />
+        </CartProvider>
       </FilterProvider>
     </Router>
   </React.StrictMode>
