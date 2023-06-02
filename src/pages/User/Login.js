@@ -25,6 +25,9 @@ export function Login() {
     const data = await response.json()
 
     if(data.accessToken) {
+      sessionStorage.setItem("token", data.accessToken)
+      sessionStorage.setItem("id", data.user.id)
+
       navigate("/products")
     } else {
       toast.error(data)

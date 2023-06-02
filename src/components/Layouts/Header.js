@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Search, DropdownLoggedOut } from '../../components'
+import { Search, DropdownLoggedOut, DropdownLoggedIn } from '../../components'
 import Logo from '../../assets/logo.png'
 
 export function Header() {
     const [isDark, setIsDark] = useState(false)
     const [openSearch, setOpenSearch] = useState(false)
     const [openUser, setOpenUser] = useState(false)
+    const isLoggedIn = sessionStorage.getItem("token")
 
     useEffect(()=>{
         if(isDark) {
@@ -43,7 +44,7 @@ export function Header() {
             </div>
         </nav>
         {openSearch && <Search setOpenSearch={setOpenSearch}/>}
-        {openUser && <DropdownLoggedOut />}
+        {openUser && (isLoggedIn ? <DropdownLoggedIn /> : <DropdownLoggedOut />)}
     </header>
   )
 }
