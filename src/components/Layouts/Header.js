@@ -44,7 +44,7 @@ export function Header() {
             </div>
         </nav>
         {openSearch && <Search setOpenSearch={setOpenSearch}/>}
-        {openUser && (isLoggedIn ? <DropdownLoggedIn /> : <DropdownLoggedOut />)}
+        {openUser && (isLoggedIn ? <DropdownLoggedIn setOpenUser={setOpenUser} /> : <DropdownLoggedOut setOpenUser={setOpenUser} />)}
     </header>
   )
 }
