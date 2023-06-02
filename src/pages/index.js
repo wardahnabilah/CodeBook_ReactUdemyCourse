@@ -1,4 +1,6 @@
 export { Home } from './Home/Home'
 export { Products } from './Products/Products'
+export { ProductDetail } from './Products/ProductDetail'
 export { Login } from './User/Login'
 export { Register } from  './User/Register'
+export { Cart } from './Cart/Cart'
