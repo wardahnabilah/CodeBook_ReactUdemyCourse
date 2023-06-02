@@ -1,8 +1,11 @@
 import React from 'react'
 import { useDocTitle } from '../../hooks'
+import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 
 export function Register() {
-  
+  const navigate= useNavigate()
+
   useDocTitle("Register - CodeBook")
   
   async function handleRegister(event) {
@@ -20,6 +23,13 @@ export function Register() {
         body: JSON.stringify(registerData)
       })
       const data = await response.json()
+
+      // Show the error message
+      if(data.accessToken) {
+        navigate("/products")
+      } else {
+        toast.error(data)
+      }
   }
 
   return (
