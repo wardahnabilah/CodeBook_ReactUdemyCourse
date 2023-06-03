@@ -8,6 +8,8 @@ export function cartReducer(state, action) {
         return {...state, cartList: [...state.cartList, payload.newProduct]}
     case "REMOVE_ITEM":
         return {...state, cartList: payload.updatedCartList}
+    case "TOTAL_PRICE":
+        return {...state, totalPrice: payload.totalPrice}
     default:
         return
   }

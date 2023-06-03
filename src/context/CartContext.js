@@ -2,7 +2,8 @@ import React, { createContext, useReducer, useContext } from 'react'
 import { cartReducer } from '../reducers'
 
 const initialCart = {
-    cartList: []
+    cartList: [],
+    totalPrice: 0
 }
 
 const CartContext = createContext(initialCart)
@@ -20,10 +21,21 @@ export function CartProvider({children}) {
         dispatch({type: "REMOVE_ITEM", payload: {updatedCartList: updatedCartList}})
     }
 
+    function calculateTotalPrice() {
+        let total = 0
+        state.cartList.forEach(product => {
+            total += product.price
+        })
+        
+        dispatch({type: "TOTAL_PRICE", payload: {totalPrice: total}})
+    }
+
     const value = {
         cartList: state.cartList,
+        totalPrice: state.totalPrice,
         addItem,
-        removeItem
+        removeItem,
+        calculateTotalPrice
     } 
 
     return (
