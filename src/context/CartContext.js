@@ -14,9 +14,16 @@ export function CartProvider({children}) {
         dispatch({type: "ADD_ITEM", payload: {newProduct: product}})
     }
 
+    function removeItem(product) {
+        const updatedCartList = state.cartList.filter(cartListProduct => cartListProduct.id !== product.id)
+        
+        dispatch({type: "REMOVE_ITEM", payload: {updatedCartList: updatedCartList}})
+    }
+
     const value = {
         cartList: state.cartList,
-        addItem
+        addItem,
+        removeItem
     } 
 
     return (

@@ -4,7 +4,19 @@ import { Rating } from './Rating'
 import { useCartContext } from '../../context'
 
 export function ProductCard({ product }) {
-  const { addItem, cartList } = useCartContext()
+  const { addItem, cartList, removeItem } = useCartContext()
+  const [isInCart, setIsInCart] = useState(false)
+
+  useEffect(()=>{
+    const productInCart = cartList.find(cartListProduct => cartListProduct.id === product.id )
+  
+    if(productInCart) {
+      setIsInCart(true)
+    } else {
+      setIsInCart(false)
+    }
+
+  },[cartList, product.id]) 
   
   return (
     <div className="w-[23rem] mx-auto mb-12 shadow-2xl rounded-xl overflow-hidden dark:bg-slate-800">
@@ -20,7 +32,9 @@ export function ProductCard({ product }) {
         </div>
         <div className="flex justify-between items-center">
           <span className="text-3xl">${product.price}</span>
-          <button onClick={()=>{addItem(product)}} className="px-2 py-1.5 text-white rounded-lg bg-blue-700 hover:bg-blue-900">Add To Cart +</button>
+          {isInCart ? <button onClick={()=>{removeItem(product)}} className="px-2 py-1.5 text-white rounded-lg bg-red-700 hover:bg-red-900">Remove Item <i className="bi bi-trash text-sm"></i></button> :
+                      <button onClick={()=>{addItem(product)}} className="px-2 py-1.5 text-white rounded-lg bg-blue-700 hover:bg-blue-900">Add To Cart +</button>
+          }
         </div>
       </div>
     </div>
