@@ -1,12 +1,13 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useFetch } from '../../../hooks'
 import { useCartContext } from '../../../context'
 
 export function Checkout({ totalPrice, setPlaceOrder }) {
-    const { clearCart } = useCartContext()
+    const { clearCart, cartList } = useCartContext()
     const userId = JSON.parse(sessionStorage.getItem("id"))
     const userToken = sessionStorage.getItem("token") 
+    const navigate = useNavigate()
 
     const userData = useFetch(`http://localhost:8000/600/users/${userId}`, {
         method: "GET",
@@ -16,6 +17,40 @@ export function Checkout({ totalPrice, setPlaceOrder }) {
         }
     })
 
+    async function handleOrder(event) {
+        event.preventDefault()
+
+        try {
+            const newOrder = {
+                products: cartList,
+                amount_paid: totalPrice,
+                quantity: cartList.length,
+                user: {
+                    id: userData.id,
+                    name: userData.name,
+                    email: userData.email
+                }
+            }
+            
+            const response = await fetch(`http://localhost:8000/660/orders`, {
+                                            method: "POST",
+                                            headers: {
+                                                "Content-Type": "application/json",
+                                                Authorization: `Bearer ${userToken}`,
+                                            },
+                                            body: JSON.stringify(newOrder)
+                                        })
+            const data = await response.json()
+            console.log(data);
+    
+            clearCart()
+            navigate("/order-summary", {state: {data: data, status: true}})
+        } catch {
+            navigate("/order-summary", {state: {status: false}})
+        }
+
+    }
+
     return (
      <>
         <div className="fixed inset-0 w-screen h-screen bg-slate-500 dark:bg-slate-900 opacity-70 dark:opacity-90"></div>
@@ -24,7 +59,7 @@ export function Checkout({ totalPrice, setPlaceOrder }) {
                 <div className="text-xl"><i className="bi bi-credit-card mr-2"></i>CARD PAYMENT</div>
                 <i onClick={()=>{setPlaceOrder(false)}} className="bi bi-x text-2xl cursor-pointer"></i>
             </div>
-            <form className="text-left">
+            <form onSubmit={handleOrder} className="text-left">
                 <div className="my-4 flex flex-col">
                     <label className="mb-1" htmlFor="namePayment">Name</label>
                     <input className="pl-3 py-1 border-[.11rem] bg-slate-200 border-neutral-300 focus:outline-blue-700 rounded-lg dark:bg-gray-700 cursor-not-allowed" type="text" id="namePayment" value={userData.name || "-"} disabled />
@@ -48,9 +83,9 @@ export function Checkout({ totalPrice, setPlaceOrder }) {
                     <label className="mb-1" htmlFor="cardnumberPayment">Security Code</label>
                     <input className="pl-3 py-1 border-[.11rem] bg-slate-200 border-neutral-300 focus:outline-blue-700 rounded-lg dark:bg-gray-700 cursor-not-allowed" type="text" id="securityPayment" value="789" disabled />
                 </div>
+                <div className="py-2 text-3xl text-center text-green-500 font-bold">${totalPrice}</div>
+                <button type="submit" className="w-full mt-4 px-4 py-2.5 text-lg text-white rounded-lg bg-blue-700 hover:bg-blue-900 block"><i className="bi bi-lock-fill "></i> PAY NOW </button>
             </form>
-            <div className="py-2 text-3xl text-center text-green-500 font-bold">${totalPrice}</div>
-            <Link to="/order-summary" onClick={()=>{clearCart()}} className="w-full mt-4 px-4 py-2.5 text-lg text-white rounded-lg bg-blue-700 hover:bg-blue-900 block"><i className="bi bi-lock-fill "></i> PAY NOW </Link>
         </div>
     </>
   )
