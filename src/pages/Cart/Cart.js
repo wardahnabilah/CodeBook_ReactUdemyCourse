@@ -8,7 +8,7 @@ export function Cart() {
   
   return (
     <main>
-        {cartList.length !== 0 ? <CartList products={cartList} /> : <CartEmpty />}
+        {cartList.length !== 0 ? <CartList /> : <CartEmpty />}
     </main>
   )
 }
