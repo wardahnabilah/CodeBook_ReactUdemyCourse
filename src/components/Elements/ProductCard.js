@@ -32,8 +32,12 @@ export function ProductCard({ product }) {
         </div>
         <div className="flex justify-between items-center">
           <span className="text-3xl">${product.price}</span>
-          {isInCart ? <button onClick={()=>{removeItem(product)}} className="px-2 py-1.5 text-white rounded-lg bg-red-700 hover:bg-red-900">Remove Item <i className="bi bi-trash text-sm"></i></button> :
-                      <button onClick={()=>{addItem(product)}} className="px-2 py-1.5 text-white rounded-lg bg-blue-700 hover:bg-blue-900">Add To Cart +</button>
+          {
+            // If out of stock, show 'out of stock' button
+            !product.in_stock ? <button className="px-2 py-1.5 text-gray-300 rounded-lg bg-gray-500" disabled>Out of Stock</button> :
+            // If in stock, show 'add item' or 'remove button'
+            (isInCart ? <button onClick={()=>{removeItem(product)}} className="px-2 py-1.5 text-white rounded-lg bg-red-700 hover:bg-red-900">Remove Item <i className="bi bi-trash text-sm"></i></button> :
+                        <button onClick={()=>{addItem(product)}} className="px-2 py-1.5 text-white rounded-lg bg-blue-700 hover:bg-blue-900">Add To Cart +</button>)
           }
         </div>
       </div>
