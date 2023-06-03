@@ -1,6 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { Home, Login, Products, Register, Cart, ProductDetail, Order } from "../pages";
+import { Home, Login, Products, Register, Cart, ProductDetail, Order, Dashboard } from "../pages";
 import { ProtectedRoute } from './ProtectedRoute';
 
 export default function AllRoutes() {
@@ -13,6 +13,7 @@ export default function AllRoutes() {
       <Route path="/register" element={<Register />}></Route>
       <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>}></Route>
       <Route path="/order-summary" element={<ProtectedRoute><Order /></ProtectedRoute>}></Route>
+      <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>}></Route>
     </Routes>
   )
 }
