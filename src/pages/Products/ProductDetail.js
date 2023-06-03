@@ -1,17 +1,31 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Rating } from '../../components'
 import { useParams } from 'react-router-dom'
 import { useFetch, useDocTitle } from '../../hooks'
+import { useCartContext } from '../../context'
 
 export function ProductDetail() {
   // Get the product id
   const id = useParams().id
-
   // Get the product detail
   const product = useFetch(`http://localhost:8000/products/${id}`)
   
   // Document title
   useDocTitle(`${product.name} - CodeBook`)
+
+  const { addItem, removeItem, cartList } = useCartContext()
+  const [isInCart, setIsInCart] = useState(false)
+
+  useEffect(()=>{
+    const productExist = cartList.find(cartListProduct => cartListProduct.id == id)
+  
+    if(productExist) {
+      setIsInCart(true)
+    } else {
+      setIsInCart(false)
+    }
+
+  },[cartList, id])
 
   return (
     <section className="w-11/12 py-12 max-w-screen-xl mx-auto text-center lg:text-left">
@@ -33,7 +47,13 @@ export function ProductDetail() {
                 {!product.in_stock && <div className="px-3 py-1 rounded-xl border-[1px]  bg-red-50 text-red-600 uppercase font-bold">Out of Stock</div>}
                 <div className="px-3 py-1 rounded-xl border-[1px] bg-blue-50 text-blue-600 uppercase font-bold">{product.size} MB</div>
               </div>
-              <button className="w-40 my-3 py-2 text-xl text-white rounded-lg bg-blue-700 hover:bg-blue-900">Add To Cart +</button>
+              {
+                // If out of stock, show 'out of stock' button
+                !product.in_stock ? <button className="w-40 my-3 py-2 text-xl text-gray-300 rounded-lg bg-gray-500" disabled>Out of Stock</button> :
+                // If in stock, show 'add item' or 'remove button' 
+                (isInCart ? <button onClick={()=>{removeItem(product)}} className="w-40 my-3 py-2 text-xl text-white rounded-lg bg-red-700 hover:bg-red-900">Remove Item <i className="bi bi-trash text-sm"></i></button> :
+                            <button onClick={()=>{addItem(product)}} className="w-40 my-3 py-2 text-xl text-white rounded-lg bg-blue-700 hover:bg-blue-900">Add To Cart +</button>)             
+              }
               <p className="text-lg">{product.long_description}</p>
           </div>
         </div>
