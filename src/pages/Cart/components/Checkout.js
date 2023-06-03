@@ -1,7 +1,10 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { useFetch } from '../../../hooks'
+import { useCartContext } from '../../../context'
 
 export function Checkout({ totalPrice, setPlaceOrder }) {
+    const { clearCart } = useCartContext()
     const userId = JSON.parse(sessionStorage.getItem("id"))
     const userToken = sessionStorage.getItem("token") 
 
@@ -47,7 +50,7 @@ export function Checkout({ totalPrice, setPlaceOrder }) {
                 </div>
             </form>
             <div className="py-2 text-3xl text-center text-green-500 font-bold">${totalPrice}</div>
-            <button className="w-full mt-4 px-4 py-2.5 text-lg text-white rounded-lg bg-blue-700 hover:bg-blue-900"><i className="bi bi-lock-fill "></i> PAY NOW </button>
+            <Link to="/order-summary" onClick={()=>{clearCart()}} className="w-full mt-4 px-4 py-2.5 text-lg text-white rounded-lg bg-blue-700 hover:bg-blue-900 block"><i className="bi bi-lock-fill "></i> PAY NOW </Link>
         </div>
     </>
   )

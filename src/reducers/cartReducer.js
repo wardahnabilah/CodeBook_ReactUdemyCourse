@@ -10,7 +10,9 @@ export function cartReducer(state, action) {
         return {...state, cartList: payload.updatedCartList}
     case "TOTAL_PRICE":
         return {...state, totalPrice: payload.totalPrice}
+    case "CLEAR_CART":
+        return payload.initialCart
     default:
-        return
+        throw new Error("Error")
   }
 }

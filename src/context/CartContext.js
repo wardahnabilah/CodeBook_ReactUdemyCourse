@@ -30,12 +30,17 @@ export function CartProvider({children}) {
         dispatch({type: "TOTAL_PRICE", payload: {totalPrice: total}})
     }
 
+    function clearCart() {
+        dispatch({type: "CLEAR_CART", payload: {initialCart: initialCart}})
+    }
+
     const value = {
         cartList: state.cartList,
         totalPrice: state.totalPrice,
         addItem,
         removeItem,
-        calculateTotalPrice
+        calculateTotalPrice,
+        clearCart
     } 
 
     return (
