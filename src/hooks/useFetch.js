@@ -1,20 +1,19 @@
 import { useState, useEffect } from "react"
-import { useFilterContext } from "../context"
 
 export function useFetch(url) {
-    const {productList, allProducts} = useFilterContext()
+    const [products, setProducts] = useState([])
 
     useEffect(()=>{
         async function fetchProducts() {
             const response = await fetch(url)
             const data = await response.json()
 
-            allProducts(data)
+            setProducts(data)
         }
 
         fetchProducts()
 
     }, [url])
   
-    return productList
+    return products
 }
