@@ -5,7 +5,7 @@ import { useCartContext } from '../../../context'
 
 export function Checkout({ totalPrice, setPlaceOrder }) {
     const { clearCart, cartList } = useCartContext()
-    const userId = JSON.parse(sessionStorage.getItem("id"))
+    const userId = sessionStorage.getItem("id")
     const userToken = sessionStorage.getItem("token") 
     const navigate = useNavigate()
 
