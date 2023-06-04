@@ -1,24 +1,33 @@
 import { useEffect, useState } from 'react'
+import { useSearchParams, Navigate } from 'react-router-dom'
 import { ProductCard } from '../../components'
 import { FilterBar } from './components/FilterBar'
 import { useDocTitle } from '../../hooks'
-import { useSearchParams } from 'react-router-dom'
 import { useFilterContext } from '../../context'
 import { getProducts } from '../../services'
+import { ErrorMessage } from '../../components/Others/ErrorMessage'
 
 export function Products() {
     const { allProducts, productList:products } = useFilterContext()
     const [openFilter, setOpenFilter] = useState(false) 
+    const [isError, setIsError] = useState(false)
     const [searchParams] = useSearchParams()
     const keyword = searchParams.get("q")
 
     useEffect(()=>{
         async function fetchProducts() {
-            const data = await getProducts(keyword)
-            allProducts(data)
+            try {
+                const data = await getProducts(keyword)
+                allProducts(data)
+
+                setIsError(false)
+            } 
+            catch {
+                setIsError(true)
+            }
         }
 
-        fetchProducts()
+        fetchProducts()        
     },[])
 
     // Document title
@@ -32,12 +41,9 @@ export function Products() {
             <button onClick={() => {setOpenFilter(!openFilter)}} className="bi bi-funnel-fill text-3xl px-4 hover:text-neutral-600 dark:hover:text-cyan-500 hover:cursor-pointer"></button>
         </div>
         <div className="flex flex-wrap">
-            {products.length !== 0 ? products.map(product => {
-                                        return <ProductCard 
-                                                    key={product.id}
-                                                    product={product}
-                                                />}) : 
-                                    <p className="text-xl mx-auto py-12">No results for `{keyword}`</p>
+            {isError ? <ErrorMessage/> :
+                       (products.length !== 0 ? products.map(product => <ProductCard key={product.id} product={product}/>) : 
+                                     <p className="text-xl mx-auto py-12">No results for `{keyword}`</p>)
             }
         </div>
         {openFilter && <FilterBar setOpenFilter={setOpenFilter}/>}

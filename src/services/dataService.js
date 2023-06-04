@@ -11,7 +11,12 @@ export async function getUserData() {
         }
     }
 
-    const response = await fetch(`http://localhost:8000/600/users/${userId}`, options)
+    const response = await fetch(`http://locahost:8000/600/users/${userId}`, options)
+    
+    if(!response.ok) {
+        throw new Error("Error")
+    }
+    
     const data = await response.json()
 
     return data
@@ -56,6 +61,11 @@ export async function getUserOrders() {
     }
     
     const response = await fetch(`http://localhost:8000/660/orders?user.id=${userId}`, options)
+    
+    if(!response.ok) {
+        throw new Error("Error")
+    }
+
     const data = await response.json()
 
     return data

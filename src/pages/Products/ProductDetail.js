@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Rating } from '../../components'
+import { Rating, ErrorMessage } from '../../components'
 import { useParams } from 'react-router-dom'
 import { useDocTitle } from '../../hooks'
 import { useCartContext } from '../../context'
@@ -7,14 +7,22 @@ import { getProduct } from '../../services'
 
 export function ProductDetail() {
   const [product, setProduct] = useState({})
+  const [isError, setIsError] = useState(false)
   // Get the product id
   const id = useParams().id
 
   // Get the product detail
   useEffect(()=>{
     async function getProductDetail() {
-      const data = await getProduct(id)
-      setProduct(data)
+      try {
+        const data = await getProduct(id)
+        setProduct(data)
+
+        setIsError(false)
+      } 
+      catch {
+          setIsError(true)
+      }
     }
 
     getProductDetail()
@@ -39,7 +47,8 @@ export function ProductDetail() {
 
   return (
     <section className="w-11/12 py-12 max-w-screen-xl mx-auto text-center lg:text-left">
-        <h1 className="mb-4 text-4xl text-center font-bold">{product.name}</h1>
+        {isError && <ErrorMessage />}
+        <h1 className="mb-4 text-4xl text-center font-bold">{product.name} </h1>
         <p className="text-lg text-center mb-6 lg:mb-14">{product.overview}</p>
         <div className="flex flex-col gap-12 lg:flex-row lg:flex-auto">
           <div className="relative basis-1/2 rounded-lg overflow-hidden shadow-lg">

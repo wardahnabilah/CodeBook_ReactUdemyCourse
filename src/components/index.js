@@ -6,3 +6,4 @@ export { Search } from './Elements/Search';
 export { DropdownLoggedOut } from './Elements/DropdownLoggedOut';
 export { DropdownLoggedIn } from './Elements/DropdownLoggedIn';
 export { ScrollToTop } from './Others/ScrollToTop';
+export { ErrorMessage } from './Others/ErrorMessage';

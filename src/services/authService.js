@@ -1,5 +1,3 @@
-import React from 'react'
-
 // Register
 export async function register(registerData) {
     const response = await fetch("http://localhost:8000/register", {
@@ -7,6 +5,11 @@ export async function register(registerData) {
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(registerData)
       })
+
+      if(!response.ok) {
+        throw new Error("Error")
+      }
+
       const data = await response.json()
 
       return data
@@ -19,6 +22,10 @@ export async function login(loginData) {
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(loginData)
       })
+    
+    if(!response.ok) {
+        throw new Error("Error")
+    }
   
     const data = await response.json()
 
