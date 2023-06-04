@@ -1,7 +1,7 @@
 import React from 'react'
 import { DashboardEmpty } from './components/DashboardEmpty'
 import { DashboardList } from './components/DashboardList'
-import { useFetch } from '../../hooks'
+import { useDocTitle, useFetch } from '../../hooks'
 
 export function Dashboard() {
     const userId = sessionStorage.getItem("id")
@@ -13,6 +13,8 @@ export function Dashboard() {
             Authorization: `Bearer ${userToken}`
         }
     })
+
+    useDocTitle("Dashboard - CodeBook")
 
     return (
         <main className="w-11/12 md:w-8/12 py-12 max-w-screen-xl mx-auto text-center">
