@@ -1,10 +1,18 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { ProductCard } from '../../../components'
-import { useFetch } from '../../../hooks/useFetch'
+import { getFeaturedProduct } from '../../../services'
 
 export function FeaturedEbooks() {
-  
-  const products = useFetch("http://localhost:8000/featured_products")
+  const [products, setProducts] = useState([])
+
+  useEffect(()=>{
+    async function featuredProducts() {
+      const data = await getFeaturedProduct()
+      setProducts(data)
+    }
+
+    featuredProducts()
+  }, [])
   
   return (
     <section className="w-11/12 py-12 max-w-screen-xl mx-auto text-center">

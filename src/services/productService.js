@@ -13,3 +13,11 @@ export async function getProduct(id) {
 
     return data
 }
+
+// Get featured products
+export async function getFeaturedProduct() {
+  const response = await fetch("http://localhost:8000/featured_products")
+  const data = await response.json()
+
+  return data
+}
