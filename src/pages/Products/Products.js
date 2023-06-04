@@ -4,6 +4,7 @@ import { FilterBar } from './components/FilterBar'
 import { useDocTitle } from '../../hooks'
 import { useSearchParams } from 'react-router-dom'
 import { useFilterContext } from '../../context'
+import { getProducts } from '../../services'
 
 export function Products() {
     const { allProducts, productList:products } = useFilterContext()
@@ -13,9 +14,7 @@ export function Products() {
 
     useEffect(()=>{
         async function fetchProducts() {
-            const response = await fetch(`http://localhost:8000/products?name_like=${keyword ? keyword : ''}`)
-            const data = await response.json()
-
+            const data = await getProducts(keyword)
             allProducts(data)
         }
 

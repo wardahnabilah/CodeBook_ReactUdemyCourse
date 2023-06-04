@@ -1,18 +1,20 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import { DashboardEmpty } from './components/DashboardEmpty'
 import { DashboardList } from './components/DashboardList'
-import { useDocTitle, useFetch } from '../../hooks'
+import { useDocTitle } from '../../hooks'
+import { getUserOrders } from '../../services'
 
 export function Dashboard() {
-    const userId = sessionStorage.getItem("id")
-    const userToken = sessionStorage.getItem("token") 
-    const orders = useFetch(`http://localhost:8000/660/orders?user.id=${userId}`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${userToken}`
+    const [orders, setOrders] = useState([])
+    
+    useEffect(()=>{
+        async function getOrders() {
+            const data = await getUserOrders()
+            setOrders(data)
         }
-    })
+
+        getOrders()
+    }, [])
 
     useDocTitle("Dashboard - CodeBook")
 

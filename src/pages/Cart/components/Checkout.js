@@ -1,51 +1,33 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useFetch } from '../../../hooks'
 import { useCartContext } from '../../../context'
+import { getUserData, createOrder } from '../../../services'
 
 export function Checkout({ totalPrice, setPlaceOrder }) {
+    const [userData, setUserData] = useState({})
     const { clearCart, cartList } = useCartContext()
-    const userId = sessionStorage.getItem("id")
-    const userToken = sessionStorage.getItem("token") 
     const navigate = useNavigate()
 
-    const userData = useFetch(`http://localhost:8000/600/users/${userId}`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${userToken}`
+    useEffect(()=>{
+        async function getUser() {
+            const userData = await getUserData()
+
+            setUserData(userData)
         }
-    })
+
+        getUser()
+    }, [])
 
     async function handleOrder(event) {
         event.preventDefault()
 
         try {
-            const newOrder = {
-                products: cartList,
-                amount_paid: totalPrice,
-                quantity: cartList.length,
-                user: {
-                    id: userData.id,
-                    name: userData.name,
-                    email: userData.email
-                }
-            }
-            
-            const response = await fetch(`http://localhost:8000/660/orders`, {
-                                            method: "POST",
-                                            headers: {
-                                                "Content-Type": "application/json",
-                                                Authorization: `Bearer ${userToken}`,
-                                            },
-                                            body: JSON.stringify(newOrder)
-                                        })
-            const data = await response.json()
-            console.log(data);
-    
+            const data = await createOrder(cartList, totalPrice, userData)
+
             clearCart()
             navigate("/order-summary", {state: {data: data, status: true}})
-        } catch {
+        } 
+        catch {
             navigate("/order-summary", {state: {status: false}})
         }
 

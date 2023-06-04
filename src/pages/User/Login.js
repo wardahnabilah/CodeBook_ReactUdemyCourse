@@ -2,6 +2,7 @@ import React, { useRef } from 'react'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import { useDocTitle } from '../../hooks'
+import { login } from '../../services'
 
 
 export function Login() {
@@ -16,22 +17,9 @@ export function Login() {
       password: password.current.value
     }
 
-    const response = await fetch("http://localhost:8000/login", {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify(loginData)
-    })
+    const data = await login(loginData)
 
-    const data = await response.json()
-
-    if(data.accessToken) {
-      sessionStorage.setItem("token", data.accessToken)
-      sessionStorage.setItem("id", data.user.id)
-
-      navigate("/products")
-    } else {
-      toast.error(data)
-    }
+    data.accessToken ? navigate("/products") : toast.error(data)
   }
 
   useDocTitle("Login - CodeBook")

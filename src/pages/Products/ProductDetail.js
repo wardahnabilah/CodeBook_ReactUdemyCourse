@@ -1,15 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import { Rating } from '../../components'
 import { useParams } from 'react-router-dom'
-import { useFetch, useDocTitle } from '../../hooks'
+import { useDocTitle } from '../../hooks'
 import { useCartContext } from '../../context'
+import { getProduct } from '../../services'
 
 export function ProductDetail() {
+  const [product, setProduct] = useState({})
   // Get the product id
   const id = useParams().id
+
   // Get the product detail
-  const product = useFetch(`http://localhost:8000/products/${id}`)
-  
+  useEffect(()=>{
+    async function getProductDetail() {
+      const data = await getProduct(id)
+      setProduct(data)
+    }
+
+    getProductDetail()
+  },[])
+
   // Document title
   useDocTitle(`${product.name} - CodeBook`)
 
