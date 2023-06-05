@@ -5,7 +5,7 @@ import { FilterBar } from './components/FilterBar'
 import { useDocTitle } from '../../hooks'
 import { useFilterContext } from '../../context'
 import { getProducts } from '../../services'
-import { ErrorMessage } from '../../components/Others/ErrorMessage'
+import { ErrorMessage } from '../../components'
 
 export function Products() {
     const { allProducts, productList:products } = useFilterContext()

@@ -11,11 +11,7 @@ export async function getUserData() {
         }
     }
 
-    const response = await fetch(`http://locahost:8000/600/users/${userId}`, options)
-    
-    if(!response.ok) {
-        throw new Error("Error")
-    }
+    const response = await fetch(`${process.env.REACT_APP_HOST}/600/users/${userId}`, options)
     
     const data = await response.json()
 
@@ -44,7 +40,7 @@ export async function createOrder(cartList, totalPrice, userData) {
         body: JSON.stringify(newOrder)
     }
     
-    const response = await fetch(`http://localhost:8000/660/orders`, options)
+    const response = await fetch(`${process.env.REACT_APP_HOST}/660/orders`, options)
     const data = await response.json()
 
     return data
@@ -60,12 +56,7 @@ export async function getUserOrders() {
         }
     }
     
-    const response = await fetch(`http://localhost:8000/660/orders?user.id=${userId}`, options)
-    
-    if(!response.ok) {
-        throw new Error("Error")
-    }
-
+    const response = await fetch(`${process.env.REACT_APP_HOST}/660/orders?user.id=${userId}`, options)
     const data = await response.json()
 
     return data

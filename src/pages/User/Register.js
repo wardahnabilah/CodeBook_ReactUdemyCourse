@@ -3,6 +3,7 @@ import { useDocTitle } from '../../hooks'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import { register, login } from '../../services'
+import { ErrorMessage } from '../../components'
 
 export function Register() {
   const navigate= useNavigate()
@@ -23,7 +24,7 @@ export function Register() {
         const data = await register(registerData)
 
         if(data.accessToken) {
-          login(registerData)
+          await login(registerData)
           navigate("/products")
         } else {
           toast.error(data)
@@ -31,7 +32,7 @@ export function Register() {
 
         setIsError(false)
       } 
-      catch(error) {
+      catch{
         setIsError(true)
       }
   }
@@ -39,6 +40,7 @@ export function Register() {
   return (
     <section className="w-11/12 py-12 max-w-screen-xl mx-auto">
         <h1 className="mb-12 text-3xl text-center font-semibold dark:font-normal underline underline-offset-8">Register</h1>
+        {isError && <ErrorMessage />}
         <form onSubmit={handleRegister} className="w-11/12 mx-auto text-lg">
           <div className="my-3 flex flex-col">
                 <label className="mb-1" htmlFor="registerName">Name</label>
@@ -54,7 +56,6 @@ export function Register() {
             </div>
             <button className="max-sm:w-full px-4 py-2.5 text-xl text-white rounded-lg bg-blue-700 hover:bg-blue-900">Register</button>
         </form>
-        {/* {isError && <ServerError />} */}
     </section>
   )
 }

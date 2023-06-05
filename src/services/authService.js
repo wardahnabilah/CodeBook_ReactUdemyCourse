@@ -1,14 +1,10 @@
 // Register
 export async function register(registerData) {
-    const response = await fetch("http://localhost:8000/register", {
+    const response = await fetch(`${process.env.REACT_APP_HOST}/register`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(registerData)
       })
-
-      if(!response.ok) {
-        throw new Error("Error")
-      }
 
       const data = await response.json()
 
@@ -17,16 +13,12 @@ export async function register(registerData) {
 
 // Login
 export async function login(loginData) {
-    const response = await fetch("http://localhost:8000/login", {
+    const response = await fetch(`${process.env.REACT_APP_HOST}/login`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(loginData)
       })
     
-    if(!response.ok) {
-        throw new Error("Error")
-    }
-  
     const data = await response.json()
 
     if(data.accessToken) {
