@@ -6,9 +6,13 @@ export async function register(registerData) {
         body: JSON.stringify(registerData)
       })
 
-      const data = await response.json()
+    if(!response.ok) {
+        throw new Error()
+    }
 
-      return data
+    const data = await response.json()
+
+    return data
 }
 
 // Login
@@ -18,7 +22,7 @@ export async function login(loginData) {
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(loginData)
       })
-    
+
     const data = await response.json()
 
     if(data.accessToken) {

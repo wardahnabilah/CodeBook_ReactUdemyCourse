@@ -1,8 +1,15 @@
-const userId = sessionStorage.getItem("id")
-const userToken = sessionStorage.getItem("token")
+function getSession() {
+    const userId = sessionStorage.getItem("id")
+    const userToken = sessionStorage.getItem("token")
+
+    return { userId, userToken}
+}
+
 
 // Get logged in user data
 export async function getUserData() {
+    const { userId, userToken } = getSession()
+
     const options = {
         method: "GET",
         headers: {
@@ -13,6 +20,10 @@ export async function getUserData() {
 
     const response = await fetch(`${process.env.REACT_APP_HOST}/600/users/${userId}`, options)
     
+    if(!response.ok) {
+        throw new Error()
+      }
+
     const data = await response.json()
 
     return data
@@ -20,6 +31,8 @@ export async function getUserData() {
 
 // Create order
 export async function createOrder(cartList, totalPrice, userData) {
+    const { userToken } = getSession()
+    
     const newOrder = {
         products: cartList,
         amount_paid: totalPrice,
@@ -41,6 +54,11 @@ export async function createOrder(cartList, totalPrice, userData) {
     }
     
     const response = await fetch(`${process.env.REACT_APP_HOST}/660/orders`, options)
+    
+    if(!response.ok) {
+        throw new Error()
+    }
+
     const data = await response.json()
 
     return data
@@ -48,6 +66,8 @@ export async function createOrder(cartList, totalPrice, userData) {
 
 // Get user orders
 export async function getUserOrders() {
+    const { userId, userToken } = getSession()
+    
     const options = {
         method: "GET",
         headers: {
@@ -57,6 +77,11 @@ export async function getUserOrders() {
     }
     
     const response = await fetch(`${process.env.REACT_APP_HOST}/660/orders?user.id=${userId}`, options)
+    
+    if(!response.ok) {
+        throw new Error()
+    }
+    
     const data = await response.json()
 
     return data
