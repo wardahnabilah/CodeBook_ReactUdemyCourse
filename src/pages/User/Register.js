@@ -3,11 +3,12 @@ import { useDocTitle } from '../../hooks'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import { register, login } from '../../services'
-import { ErrorMessage } from '../../components'
+import { ErrorMessage, LoadingSmall } from '../../components'
 
 export function Register() {
   const navigate= useNavigate()
   const [isError, setIsError] = useState(false)
+  const [isClicked, setIsClicked] = useState(false)
 
   useDocTitle("Register - CodeBook")
   
@@ -25,14 +26,18 @@ export function Register() {
 
         if(data.accessToken) {
           await login(registerData)
+          toast.success("Account Successfully created", {autoClose: 3000})
           navigate("/products")
-        } else {
+        } 
+        else {
+          setIsClicked(false)
           toast.error(data)
         }
 
         setIsError(false)
       } 
       catch{
+        setIsClicked(false)
         setIsError(true)
       }
   }
@@ -54,7 +59,7 @@ export function Register() {
                 <label className="mb-1" htmlFor="registerPassword">Password</label>
                 <input className="pl-3 py-1 text-lg border-2 bg-slate-50 border-neutral-300 focus:outline-blue-700 rounded-lg dark:bg-gray-700" type="password" name="registerPassword" id="registerPassword" placeholder="Your Password"/>
             </div>
-            <button className="max-sm:w-full px-4 py-2.5 text-xl text-white rounded-lg bg-blue-700 hover:bg-blue-900">Register</button>
+            <button onClick={()=>{setIsClicked(true)}} className="w-24 h-12 max-sm:w-full px-4 py-2.5 text-xl text-white rounded-lg bg-blue-700 hover:bg-blue-900">{isClicked ? <LoadingSmall /> : "Register"}</button>
         </form>
     </section>
   )

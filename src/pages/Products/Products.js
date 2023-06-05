@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams, Navigate } from 'react-router-dom'
-import { ProductCard } from '../../components'
+import { Loading, ProductCard } from '../../components'
 import { FilterBar } from './components/FilterBar'
 import { useDocTitle } from '../../hooks'
 import { useFilterContext } from '../../context'
@@ -11,6 +11,7 @@ export function Products() {
     const { allProducts, productList:products } = useFilterContext()
     const [openFilter, setOpenFilter] = useState(false) 
     const [isError, setIsError] = useState(false)
+    const [isLoading, setIsLoading] = useState(true)
     const [searchParams] = useSearchParams()
     const keyword = searchParams.get("q")
 
@@ -19,16 +20,18 @@ export function Products() {
             try {
                 const data = await getProducts(keyword)
                 allProducts(data)
-
+                
+                setIsLoading(false)
                 setIsError(false)
             } 
             catch {
+                setIsLoading(false)
                 setIsError(true)
             }
         }
 
         fetchProducts()        
-    },[])
+    },[keyword])
 
     // Document title
     useDocTitle("CodeBook - Collections")
@@ -41,10 +44,12 @@ export function Products() {
             <button onClick={() => {setOpenFilter(!openFilter)}} className="bi bi-funnel-fill text-3xl px-4 hover:text-neutral-600 dark:hover:text-cyan-500 hover:cursor-pointer"></button>
         </div>
         <div className="flex flex-wrap">
-            {isError ? <ErrorMessage/> :
-                       (products.length !== 0 ? products.map(product => <ProductCard key={product.id} product={product}/>) : 
-                                     <p className="text-xl mx-auto py-12">No results for `{keyword}`</p>)
-            }
+            {isLoading ? <Loading /> : 
+                (isError ? <ErrorMessage/> :
+                       (products.length !== 0 ? 
+                            products.map(product => <ProductCard key={product.id} product={product}/>) : 
+                            <p className="text-xl mx-auto py-12">No results for `{keyword}`</p>)
+            )}
         </div>
         {openFilter && <FilterBar setOpenFilter={setOpenFilter}/>}
     </section>

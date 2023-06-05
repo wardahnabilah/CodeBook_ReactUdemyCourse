@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { getUserData, logout } from '../../services'
+import { toast } from 'react-toastify'
 
 export function DropdownLoggedIn({ setOpenUser }) {
   const [userData, setUserData] = useState('')
-console.log(userData);
+
   useEffect(()=>{
     async function getUser() {
       try {
@@ -20,6 +21,8 @@ console.log(userData);
 
   function handleLogout() {
     logout()
+    toast.success("Successfully Logout", {autoClose: 2000})
+
     setOpenUser(false)
   }
   

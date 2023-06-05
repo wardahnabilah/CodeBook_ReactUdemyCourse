@@ -19,12 +19,24 @@ export function Header() {
         }
     }, [isDark])
 
+    function closeOtherMenu() {
+        setOpenSearch(false)
+        setOpenUser(false)
+    }
+
     function handleDarkMode() {
         setIsDark(!isDark)
+        closeOtherMenu()
     }
 
     function handleSearch() {
         setOpenSearch(!openSearch)
+        setOpenUser(false)
+    }
+
+    function handleUserMenu() {
+        setOpenUser(!openUser)
+        setOpenSearch(false)
     }
   
     return (
@@ -38,11 +50,11 @@ export function Header() {
                 {isDark ? <i onClick={handleDarkMode} className="bi bi-brightness-low-fill text-4xl hover:text-neutral-600 dark:hover:text-cyan-500 hover:cursor-pointer"></i> : 
                           <i onClick={handleDarkMode} className={"bi bi-moon-stars-fill text-2xl hover:text-neutral-600 dark:hover:text-cyan-500 hover:cursor-pointer"}></i>}
                 <i onClick={handleSearch} className="bi bi-search text-2xl hover:text-neutral-600 dark:hover:text-cyan-500 hover:cursor-pointer"></i>
-                <Link to="/cart" className="relative">
+                <Link to="/cart" onClick={closeOtherMenu} className="relative">
                     <i className="bi bi-cart-fill text-2xl hover:text-neutral-600 dark:hover:text-cyan-500 hover:cursor-pointer"></i>
                     <div className="w-4 h-4 absolute -top-1 -right-1.5 text-xs text-slate-200 text-center bg-red-500 rounded-full">{cartList.length}</div>
                 </Link>
-                <i onClick={()=>{setOpenUser(!openUser)}} className="bi bi-person-circle text-2xl hover:text-neutral-600 dark:hover:text-cyan-500 hover:cursor-pointer"></i>
+                <i onClick={handleUserMenu} className="bi bi-person-circle text-2xl hover:text-neutral-600 dark:hover:text-cyan-500 hover:cursor-pointer"></i>
             </div>
         </nav>
         {openSearch && <Search setOpenSearch={setOpenSearch}/>}

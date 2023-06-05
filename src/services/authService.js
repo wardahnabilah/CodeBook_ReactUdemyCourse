@@ -6,10 +6,6 @@ export async function register(registerData) {
         body: JSON.stringify(registerData)
       })
 
-    if(!response.ok) {
-        throw new Error()
-    }
-
     const data = await response.json()
 
     return data

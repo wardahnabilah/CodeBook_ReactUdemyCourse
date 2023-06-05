@@ -13,7 +13,7 @@ export function CartList() {
 
   return (
     <section className="w-11/12 md:w-8/12 py-12 max-w-screen-xl mx-auto text-center">
-        <h1 className="mb-12 text-3xl font-semibold underline underline-offset-[.6rem]">My Cart (1)</h1>
+        <h1 className="mb-12 text-3xl font-semibold underline underline-offset-[.6rem]">My Cart ({cartList.length})</h1>
         <div>
             {cartList.map(product => {
               return <CartCard 

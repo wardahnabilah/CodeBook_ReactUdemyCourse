@@ -3,13 +3,14 @@ import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import { useDocTitle } from '../../hooks'
 import { login } from '../../services'
-import { ErrorMessage } from '../../components'
+import { ErrorMessage, LoadingSmall } from '../../components'
 
 export function Login() {
   const email = useRef()
   const password = useRef()
   const navigate = useNavigate()
   const [isError, setIsError] = useState(false)
+  const [isClicked, setIsClicked] = useState(false)
 
   async function handleLogin(event) {
     event.preventDefault()
@@ -27,10 +28,12 @@ export function Login() {
       } else {
         toast.error(data)  
       }
-      
+
+      setIsClicked(false)
       setIsError(false)
     } 
     catch {
+      setIsClicked(false)
       setIsError(true)
     }
   }
@@ -50,7 +53,7 @@ export function Login() {
                 <label className="mb-1" htmlFor="loginPassword">Password</label>
                 <input ref={password} className="pl-3 py-1 text-lg border-2 bg-slate-50 border-neutral-300 focus:outline-blue-700 rounded-lg dark:bg-gray-700" type="password" id="loginPassword" placeholder="Your password" />
             </div>
-            <button className="max-sm:w-full px-4 py-2.5 text-xl text-white rounded-lg bg-blue-700 hover:bg-blue-900">Log In</button>
+            <button onClick={()=>{setIsClicked(true)}} className="max-sm:w-full w-24 h-12 px-4 py-2.5 text-xl text-white rounded-lg bg-blue-700 hover:bg-blue-900">{isClicked ? <LoadingSmall /> : "Log In"}</button>
             {/* <button className="max-sm:w-full px-4 py-2.5 text-xl text-white rounded-lg bg-blue-700 hover:bg-blue-900s">Login As Guest</button> */}
         </form>
     </section>
