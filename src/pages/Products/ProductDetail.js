@@ -26,7 +26,7 @@ export function ProductDetail() {
     }
 
     getProductDetail()
-  },[])
+  },[id])
 
   // Document title
   useDocTitle(`${product.name} - CodeBook`)
@@ -35,7 +35,7 @@ export function ProductDetail() {
   const [isInCart, setIsInCart] = useState(false)
 
   useEffect(()=>{
-    const productExist = cartList.find(cartListProduct => cartListProduct.id == id)
+    const productExist = cartList.find(cartListProduct => cartListProduct.id === id)
   
     if(productExist) {
       setIsInCart(true)

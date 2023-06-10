@@ -9,7 +9,7 @@ export function CartList() {
   
   useEffect(()=>{
     calculateTotalPrice()
-  },[cartList])
+  },[cartList]) //eslint-disable-line
 
   return (
     <section className="w-11/12 md:w-8/12 py-12 max-w-screen-xl mx-auto text-center">

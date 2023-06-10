@@ -13,7 +13,7 @@ export function useFetch(url, options) {
 
         fetchProducts()
 
-    }, [url])
+    }, [url, options])
   
     return products
 }

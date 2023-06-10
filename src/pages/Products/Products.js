@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useSearchParams, Navigate } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import { Loading, ProductCard } from '../../components'
 import { FilterBar } from './components/FilterBar'
 import { useDocTitle } from '../../hooks'
@@ -31,7 +31,7 @@ export function Products() {
         }
 
         fetchProducts()        
-    },[keyword])
+    },[keyword]) //eslint-disable-line
 
     // Document title
     useDocTitle("CodeBook - Collections")
