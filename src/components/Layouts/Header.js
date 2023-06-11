@@ -5,7 +5,7 @@ import { useCartContext } from '../../context'
 import Logo from '../../assets/logo.png'
 
 export function Header() {
-    const [isDark, setIsDark] = useState(false)
+    const [isDark, setIsDark] = useState(JSON.parse(localStorage.getItem("dark")) || false)
     const [openSearch, setOpenSearch] = useState(false)
     const [openUser, setOpenUser] = useState(false)
     const isLoggedIn = sessionStorage.getItem("token")
@@ -14,8 +14,10 @@ export function Header() {
     useEffect(()=>{
         if(isDark) {
             document.documentElement.classList.add("dark")
+            localStorage.setItem("dark", true)
         } else {
             document.documentElement.classList.remove("dark")
+            localStorage.setItem("dark", false)
         }
     }, [isDark])
 
